@@ -1,27 +1,63 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
 
-{% if user.is_authenticated %}
+<body>
+{% load humanize %}
 
-{{ user.username }} 님
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+     <a href="{% url 'login' %}">로긴</a></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    {% if user.is_authenticated %}
 
-    <form id="logout" method="POST" action="{% url 'logout' %}">
-        {% csrf_token %} 
-        <input type="submit" value="로그아웃">
-    </form>
+    {{ user.username }} 님
+    
+        <form id="logout" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %} 
+            <input type="submit" value="로그아웃">
+        </form>
+    
+    <a href="{% url 'new' %}">글쓰기</a>
+    
+    {% else %}
+    <a href="{% url 'signup' %}" style="padding-left:650;">회원가입해주세요</a>
+    
+    {% endif %}
 
-<a href="{% url 'new' %}">글쓰기</a>
+    
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link disabled" href="#"></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+        <form action="{% url 'search' %}" method="get">
+               
+              </form>
+            <input class="form-control" type="text" name="q" value="{{ q }}" placeholder="Search" aria-label="Search">
+            <input type="submit" value="검색">
+        </form>
+        </div>
+    </div>
+    </nav>
 
-{% else %}
 
-로그인 해주세요
-<a href="{% url 'login' %}">로긴</a>
-<a href="{% url 'signup' %}">횐갑</a>
+    <input type="text" name="q" value="{{ q }}">
 
-{% endif %}
-
-<form action="{% url 'search' %}" method="get">
-  <input type="text" name="q" value="{{ q }}">
-  <input type="submit" value="검색">
-</form>
 
 {% for post in posts.all %}
         <div class="container">
@@ -29,9 +65,10 @@
             
             <p>작성자 : {{ post.name }}</p>
             
-            <p>시간 : {{ post.pub_date }}</p>
+            <p>시간 : {{ post.pub_date | naturaltime }}</p>
             <p>본문 : {{ post.summary }}</p>
             <p>좋아요 : <small class="text-muted"><span class="like_count" id="count{{ post.id }}">{{ post.total_likes }} like</span></small></p>
             <a href="{% url 'detail' post.id %}">자세히보기</a>
         </div>
 {% endfor %}
+</body>

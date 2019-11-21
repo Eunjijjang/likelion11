@@ -28,6 +28,22 @@ DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['*']
 
+DEFAULT_FILE_STORAGE = 'postproject.c.MediaStorage'
+STATICFILES_STORAGE = 'postproject.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
+from boto.s3.connection import S3Connection
+
+# s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
+
+AWS_STORAGE_BUCKET_NAME = 'testej-bucket'
+
+AWS_S3_REGION_NAME = "ap-northeast-2"
+
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+
 
 # Application definition
 
@@ -40,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'postapp.apps.PostappConfig',
     'accounts.apps.AccountsConfig',
+    'storages',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -107,15 +125,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

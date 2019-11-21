@@ -1,26 +1,65 @@
-<h1>Sign Up!</h1>
+<!DOCTYPE html>
+<head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+     body{margin-top: 1px}
+     form{padding-top: 30px; padding-left: 500px}
+     input.form-control{width:500px; height:50px;}
+     button.btn.btn-lg.btn-primary.btn-block{width:500px; height:50px}
+     h1{padding-right:250px}
+     p{padding-right:250px}
+    </style>
+    </head> 
 
 
-{% if messages %}
-{% for message in messages %}
-{{message.message}}<br>
-{% endfor %}
-{% endif %}
 
-<form method="POST" action="{% url 'signup'%}">
-    {% csrf_token %}
-        Username:
-    <br>
-    <input name="username" type="text" value="">
-    <br>
-    Password:
-    <br>
-    <input name="password1" type="password" value="">
-    <br>
-    Confirm Password:
-    <br>
-    <input name="password2" type="password" value="">
-    <br>
-    <br>
-    <input class="btn btn-primary" type="submit" value="Sign Up!">
-</form>
+
+
+<body>
+      
+        {% if messages %}
+        {% for message in messages %}
+        {{message.message}}<br>
+        {% endfor %}
+        {% endif %}
+    
+        <form method="POST" action="{% url 'signup'%}">
+            {% csrf_token %}
+
+        <form class="form-signin">
+                <div class="text-center mb-4"></div>
+                  <h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
+                  <p>반가워요 ! </p>
+
+                </div>
+              
+                <div class="form-label-group">
+                  <label for="inputEmail">별명</label>
+                  <input name="username" type="text" value="" class="form-control" placeholder="원하시는 별명을 적어주세요" required autofocus>
+                  
+                </div>
+                <br>
+                <div class="form-label-group">
+                  <label for="inputPassword">비밀번호</label>
+                  <input name="password1" type="password" id="inputPassword" class="form-control" placeholder="원하는 비밀번호를 입력해주세요" required>
+                </div>
+                <br>
+                <div class="form-label-group">
+                    <input name="password2" type="password" id="inputPassword" class="form-control" placeholder="비밀번호 확인! 위에 입력한 비밀번호 한번 더 입력하세요" required>
+                    <label for="inputPassword"></label>
+                </div>
+              
+                <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입 완료</button>
+                <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>
+              </form>
+
+
+
+   
+       
+</body>
+</html>
